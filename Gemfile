@@ -28,6 +28,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise', '~> 4.7', '>= 4.7.3'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'figaro', '~> 1.2'
+gem 'paranoia', '~> 2.4', '>= 2.4.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

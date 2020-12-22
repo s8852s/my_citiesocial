@@ -29,18 +29,18 @@ class Admin::VendorsController < Admin::BaseController
     else
       render :edit
     end
-
-    def destroy
-      @vendor.destroy if @vendor
-      redirect_to admin_vendors_path, notice: "刪除廠商成功"
-    end
   end
+
+  def destroy
+    @vendor.destroy if @vendor
+    redirect_to admin_vendors_path, notice: "刪除廠商成功"
+  end
+
 
   private
   def find_vendor
-    @vendor = Vendor.find_by(id: params[:id])
+    @vendor = Vendor.find(params[:id])
   end
-
   
   def vendor_params
       params.require(:vendor).permit(:title, :description, :online)

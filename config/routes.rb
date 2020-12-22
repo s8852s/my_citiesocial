@@ -6,8 +6,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root "products#index"
-    resources :products
-    resources :vendors, expect: [:show]
+    resources :products, except: [:show]
+    resources :vendors, except: [:show]
   end
   
   

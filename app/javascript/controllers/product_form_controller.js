@@ -14,8 +14,10 @@ export default class extends Controller {
     event.preventDefault();
     let wrapper = event.target.closest('.nested-fields');
     if (wrapper.dataset.newRecord == 'true'){
+      // 如果還未寫入DB
       wrapper.remove();
     } else {
+      // 已經寫入DB
       wrapper.querySelector('input[name*="_destroy"]').value = 1;
       wrapper.style.display = 'none';
     }

@@ -1,4 +1,5 @@
 <div class="columns nested-fields" data-new-record='<%= form.object.new_record? %>'>
+  <!-- data-new-record='<%# form.object.new_record? %>判斷是否已經寫入DB -->
   <div class="column is-6">
     <div class="field">
       <%= form.text_field :spec, placeholder:'規格', class: 'input' %>

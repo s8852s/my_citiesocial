@@ -16,4 +16,13 @@ class Cart
   def empty?
     @items.empty? #@items是陣列，陣列本來就有empty?方法可用
   end
+
+  def total_price
+    @items.reduce(0) { |sum, item| sum + item.total_price }
+    # total = 0
+    # @items.each do |item|
+    #   total += item.total_price
+    # end
+    # total
+  end
 end

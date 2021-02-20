@@ -18,11 +18,17 @@ class Cart
   end
 
   def total_price
-    @items.reduce(0) { |sum, item| sum + item.total_price }
+    
+    # @items.reduce(0) { |sum, item| sum + item.total_price }
     # total = 0
     # @items.each do |item|
     #   total += item.total_price
     # end
     # total
+    total = @items.sum { |item| item.total_price }
+    if Date.today.month == 12 && Date.today.day == 25
+      total = total * 0.9
+    end
+    total
   end
 end

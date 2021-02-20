@@ -36,7 +36,9 @@ RSpec.describe Cart, type: :model do
     expect(cart.items.first.total_price).to eq 15
     expect(cart.items.last.total_price).to eq 20
     expect(cart.total_price).to eq 35
+  end
 
+  it "特別活動可搭配折扣（例如聖誕節的時候全面打 9 折，或是滿額滿千送百或滿額免運費）。" do
   end
 
   context "進階功能" do

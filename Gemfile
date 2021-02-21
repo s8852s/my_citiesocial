@@ -65,4 +65,5 @@ group :development, :test do
   gem 'faker', '~> 2.11'
   gem 'pry-rails', '~> 0.3.9'
   gem 'timecop', '~> 0.9.4'
+  gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
 end

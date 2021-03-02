@@ -42,9 +42,19 @@ export default class extends Controller {
         data: data,
         success: resp => {
           console.log(resp);
+          if (resp.status === "ok") {
+            let item_count = resp.items || 0;
+            // 發event
+            let evt = new CustomEvent('addToCart', { 'detail': { item_count } });
+            console.log("evt");
+            document.dispatchEvent(evt);
+          }
         },
         error: err => {
           console.log(err);
+        },
+        complete: () => {
+          this.addToCartButtonTarget.classList.remove('is-loading');
         }
       });
     };

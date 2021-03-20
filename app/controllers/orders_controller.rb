@@ -3,8 +3,9 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.build(order_params)
+
     current_cart.items.each do |item|
-      @order.order_items.build(sku: item.sku, quantity: item.quantity)
+      @order.order_items.build(sku_id: item.sku, quantity: item.quantity)
     end
 
     if @order.save
@@ -22,6 +23,7 @@ class OrdersController < ApplicationController
       end
 
       result = JSON.parse(resp.body)
+
       if result["returnCode"] == "0000"
         payment_url = result["info"]["paymentUrl"]["web"]
         redirect_to payment_url
@@ -30,8 +32,29 @@ class OrdersController < ApplicationController
         render "carts/checkout"
       end
 
-      redirect_to root_path, notice: "OK"
+      # redirect_to root_path, notice: "OK"
     end
+  end
+
+  def confirm
+    resp = Faraday.post("#{ENV['line_pay_endpoint']}/v2/payments/#{params[:transactionId]}/confirm") do |req|
+      req.headers['Content-Type'] = application/json
+      req.headers['X-LINE-ChannelId'] = ENV['line_pay_channel_id']
+      req.headers['X-LINE-ChannelSecret'] = ENV['line_pay_channel_secret']
+      req.body = {
+        amount: current_cart.total_price.to_i,
+        currency: "TWD"
+      }.to_json
+    end
+    
+    result = JSON.parse(resp.body)
+    if result["returnCode"] == "0000"
+      redirect_to root_path, notice: "付款已完成"
+    else
+      redirect_to root_path, notice: "付款發生錯誤"
+    end
+
+    render html: id
   end
 
   private
